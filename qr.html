@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="./qr.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <h1>QR CODE GENERATOR</h1>
+    <h2>Enter the content</h2>
+    <form action="" id="form">
+        <input type="text" name="content" id="qrcontent" autocomplete="off">
+        <input type="submit" value="Generate QR Code">
+        <!-- <input type="file"> -->
+    </form>
+    <br>
+    <div id="qrcode">
+        
+    </div>
+    <script>
+        let qrcontentInput = document.getElementById("qrcontent");
+        let qrform = document.getElementById("form");
+        let qrcode;
+
+        function generateQrcode(qrcontent) 
+        {
+            return new QRCode("qrcode", {
+                text: qrcontent,
+                width: 250,
+                height: 250,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        qrform.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let qrcontent = qrcontentInput.value;
+            if (!qrcode) {
+                qrcode = generateQrcode(qrcontent);
+            } else {
+                qrcode.clear();
+                qrcode.makeCode(qrcontent);
+            }
+        });
+    </script>
+</body>
+</html>
